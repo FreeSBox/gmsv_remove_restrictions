@@ -8,3 +8,7 @@ FetchContent_Declare(
 )
 message("MinHook")
 FetchContent_MakeAvailable(minhook)
+
+if (NOT WIN32)
+	target_compile_options(minhook PRIVATE -fPIC)
+endif()
