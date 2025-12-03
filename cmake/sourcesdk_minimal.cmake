@@ -1,9 +1,15 @@
 include(FetchContent)
 
+if (CMAKE_SIZEOF_VOID_P EQUAL 8)
+	set(SOURCE_SDK_TAG b2c2a520ed2f7c73d716682c9295294ffd26c172)
+else()
+	set(SOURCE_SDK_TAG 58938eaf9954fb5e8ee4a1780ea260405d25556b)
+endif()
+
 FetchContent_Declare(
 	sourcesdk_minimal
 	GIT_REPOSITORY https://github.com/danielga/sourcesdk-minimal.git
-	GIT_TAG        58938eaf9954fb5e8ee4a1780ea260405d25556b
+	GIT_TAG        ${SOURCE_SDK_TAG}
 	GIT_PROGRESS TRUE
 )
 message("sourcesdk-minimal")

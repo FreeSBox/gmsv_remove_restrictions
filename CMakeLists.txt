@@ -6,7 +6,9 @@ project(remove_restrictions CXX)
 
 set(SRC_DIR "${PROJECT_SOURCE_DIR}/src")
 
-message(STATUS "\nFetching modules")
+message("void* size is: ${CMAKE_SIZEOF_VOID_P}")
+
+message("\nFetching modules")
 include(cmake/sourcesdk_minimal.cmake)
 include(cmake/minhook.cmake)
 
@@ -34,10 +36,23 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
 	"${sourcesdk_minimal_SOURCE_DIR}/game/shared"
 	"${sourcesdk_minimal_SOURCE_DIR}/game/server"
 	#"${sourcesdk_minimal_SOURCE_DIR}/game/client"
-	#"${minhook_SOURCE_DIR}/src/hde"
 )
 target_precompile_headers(${CMAKE_PROJECT_NAME} PRIVATE "${SRC_DIR}/common.hpp")
-target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE minhook common ${sourcesdk_minimal_SOURCE_DIR}/lib/public/linux32/libtier0_srv.so)
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE minhook common)
+
+if (CMAKE_SIZEOF_VOID_P EQUAL 8)
+	if (IS_SERVERSIDE)
+		target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE minhook ${sourcesdk_minimal_SOURCE_DIR}/lib/public/linux64/libtier0.so)
+	else()
+		target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE minhook ${sourcesdk_minimal_SOURCE_DIR}/lib/public/linux64/libtier0_client.so)
+	endif()
+else()
+	if (IS_SERVERSIDE)
+		target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE minhook ${sourcesdk_minimal_SOURCE_DIR}/lib/public/linux32/libtier0_srv.so)
+		else()
+		target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE minhook ${sourcesdk_minimal_SOURCE_DIR}/lib/public/linux32/libtier0.so)
+	endif()
+endif()
 
 if (IS_SERVERSIDE)
 	set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES PREFIX "gmsv_")
