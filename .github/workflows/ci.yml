@@ -1,0 +1,55 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  linux32:
+    runs-on: ubuntu-latest
+    name: Linux32
+    steps:
+    - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+    - uses: actions/checkout@v4
+
+    - name: Install 32bit libs
+      run: |
+        sudo apt update
+        sudo apt install g++-multilib
+
+    - name: Check CMake version
+      run: cmake --version
+
+    - name: Generate CMake project
+      run: cmake -DCMAKE_C_FLAGS=-m32 -DCMAKE_CXX_FLAGS=-m32 -DCMAKE_BUILD_TYPE:STRING=Release -S. -Bbuild -G Ninja
+
+    - name: Build 32bit release DLL
+      run: cmake --build build --config Release
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: binary-linux32
+        path: build/gm*_linux.dll
+
+  linux64:
+    runs-on: ubuntu-latest
+    name: Linux64
+    steps:
+    - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+    - uses: actions/checkout@v4
+
+    - name: Check CMake version
+      run: cmake --version
+
+    - name: Generate CMake project
+      run: cmake -DCMAKE_BUILD_TYPE:STRING=Release -S. -Bbuild -G Ninja
+
+    - name: Build 64bit release DLL
+      run: cmake --build build --config Release
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: binary-linux64
+        path: build/gm*_linux64.dll

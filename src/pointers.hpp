@@ -1,5 +1,4 @@
 #pragma once
-#include "scanning/platform.hpp"
 
 namespace gm
 {

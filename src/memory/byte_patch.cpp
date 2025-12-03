@@ -9,7 +9,7 @@
  */
 
 #include "byte_patch.hpp"
-#include "detouring/helpers.hpp"
+#include "gmod/detour_helpers.hpp"
 #include <algorithm>
 
 namespace memory
