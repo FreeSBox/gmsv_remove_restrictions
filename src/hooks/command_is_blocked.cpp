@@ -1,5 +1,5 @@
 #include "hooking/hooking.hpp"
-#include <dbg.h>
+#include <tier0/dbg.h>
 
 namespace gm
 {

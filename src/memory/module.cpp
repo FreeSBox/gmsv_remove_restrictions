@@ -1,13 +1,11 @@
 #include "module.hpp"
 
-#include "scanning/platform.hpp"
-
+#include <cstring>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <dlfcn.h>
 #include <elf.h>
 #include <link.h>
-#include <string.h>
 #include <sys/mman.h>
 #include <unistd.h>
 
