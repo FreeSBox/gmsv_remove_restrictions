@@ -51,11 +51,30 @@ namespace gm
 		batch.run(memory::module("server"));
 	}
 
+	void pointers::init_launcher()
+	{
+		memory::batch batch;
+
+		batch.add("Launcher Mgr", "53 48 89 FB 48 8B 3D", [this](memory::handle ptr) {
+			m_launcher_mgr = ptr.add(7).rip().as<ILauncherMgr*>();
+		});
+
+		batch.add("SDL_GL_SwapWindow", "E8 ? ? ? ? 48 8B 05 ? ? ? ? BF 00 40", [this](memory::handle ptr) {
+			m_sdl_swap_window = ptr.add(1).rip().as<void*>();
+		});
+
+		batch.add("SDL_PollEvent", "4C 89 EF E8 ? ? ? ? 85 C0 75 ? 48", [this](memory::handle ptr) {
+			m_sdl_poll_event = ptr.add(4).rip().as<void*>();
+		});
+
+		batch.run(memory::module("launcher"));
+	}
+
 	pointers::pointers()
 	{
 		init_engine();
-
 		init_server();
+		init_launcher();
 
 		g_pointers = this;
 	}

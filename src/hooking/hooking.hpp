@@ -10,6 +10,9 @@ namespace gm
 	struct hooks
 	{
 		static char* ConCommand_IsBlocked(char* command);
+
+		static int SDL_PollEvent(SDL_Event* event);
+		static void SDL_GL_SwapWindow(SDL_Window* window);
 	};
 
 	class minhook_keepalive

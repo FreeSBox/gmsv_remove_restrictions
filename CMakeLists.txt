@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-set(IS_SERVERSIDE ON)
+set(IS_SERVERSIDE OFF)
 
 project(remove_restrictions CXX)
 
@@ -11,6 +11,12 @@ message("void* size is: ${CMAKE_SIZEOF_VOID_P}")
 message("\nFetching modules")
 include(cmake/sourcesdk_minimal.cmake)
 include(cmake/minhook.cmake)
+
+message("\nFetching custom modules")
+include(cmake/imgui.cmake)
+
+find_package(SDL2 REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS})
 
 message(STATUS ${CMAKE_PROJECT_NAME})
 file(GLOB_RECURSE SRC_MAIN
@@ -36,9 +42,10 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
 	"${sourcesdk_minimal_SOURCE_DIR}/game/shared"
 	"${sourcesdk_minimal_SOURCE_DIR}/game/server"
 	#"${sourcesdk_minimal_SOURCE_DIR}/game/client"
+	${imgui_SOURCE_DIR}
 )
 target_precompile_headers(${CMAKE_PROJECT_NAME} PRIVATE "${SRC_DIR}/common.hpp")
-target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE minhook common)
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE minhook common SDL2 imgui)
 
 if (CMAKE_SIZEOF_VOID_P EQUAL 8)
 	if (IS_SERVERSIDE)

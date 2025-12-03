@@ -1,5 +1,7 @@
 #pragma once
 
+class ILauncherMgr;
+
 namespace gm
 {
 	class pointers
@@ -11,6 +13,7 @@ namespace gm
 	private:
 		void init_engine();
 		void init_server();
+		void init_launcher();
 
 	public:
 
@@ -19,6 +22,11 @@ namespace gm
 		void* m_allow_all_invalid_tickets{};
 
 		void* m_concommand_is_blocked{};
+
+		ILauncherMgr *m_launcher_mgr{};
+
+		void* m_sdl_poll_event{};
+		void* m_sdl_swap_window{};
 	};
 
 	inline pointers* g_pointers{};

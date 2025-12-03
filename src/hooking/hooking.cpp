@@ -24,6 +24,8 @@ namespace gm
 		}
 
 		detour_hook_helper::add<hooks::ConCommand_IsBlocked>("ConCommand_IsBlocked", g_pointers->m_concommand_is_blocked);
+		detour_hook_helper::add<hooks::SDL_GL_SwapWindow>("SDL_GL_SwapWindow", g_pointers->m_sdl_swap_window);
+		detour_hook_helper::add<hooks::SDL_PollEvent>("SDL_PollEvent", g_pointers->m_sdl_poll_event);
 
 		g_hooking = this;
 	}

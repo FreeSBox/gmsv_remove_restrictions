@@ -3,6 +3,7 @@
 #include "pointers.hpp"
 #include "byte_patch_manager.hpp"
 #include "hooking/hooking.hpp"
+#include "renderer.hpp"
 
 #include <memory>
 
@@ -10,6 +11,7 @@
 std::unique_ptr<gm::pointers> pointers_instance;
 std::unique_ptr<gm::byte_patch_manager> byte_patch_manager_instance;
 std::unique_ptr<gm::hooking> hooking_instance;
+std::unique_ptr<gm::renderer> renderer_instance;
 
 GMOD_MODULE_OPEN()
 {
@@ -26,6 +28,9 @@ GMOD_MODULE_OPEN()
 
 	g_hooking->enable();
 	Msg("Hooking enabled.\n");
+	
+	renderer_instance = std::make_unique<renderer>();
+	Msg("Renderer initialized.\n");
 
 	return 0;
 }
@@ -33,6 +38,9 @@ GMOD_MODULE_OPEN()
 GMOD_MODULE_CLOSE()
 {
 	using namespace gm;
+
+	renderer_instance.reset();
+	Msg("Renderer uninitialized.\n");
 
 	g_hooking->disable();
 	Msg("Hooking disabled.\n");
