@@ -28,6 +28,9 @@ namespace gm
 	{
 		m_window = window;
 
+		SDL_GLContext og_context = SDL_GL_GetCurrentContext();
+
+		// This switches us to the new context, so we need to restore the old one after this function.
 		m_context = SDL_GL_CreateContext(window);
 		ImGuiContext* ctx = ImGui::CreateContext();
 
@@ -40,7 +43,7 @@ namespace gm
 		ImGui_ImplSDL2_InitForOpenGL(window, m_context);
 		ImGui_ImplOpenGL3_Init();
 
-		Msg("Render initialized yey.\n");
+		SDL_GL_MakeCurrent(window, og_context);
 	}
 
 	void renderer::swap_window(SDL_Window* window)
@@ -48,6 +51,7 @@ namespace gm
 		if (m_window == nullptr)
 		{
 			init(window);
+			return;
 		}
 
 		SDL_GLContext og_context = SDL_GL_GetCurrentContext();
