@@ -24,6 +24,7 @@ namespace gm
 		}
 
 		detour_hook_helper::add<hooks::ConCommand_IsBlocked>("ConCommand_IsBlocked", g_pointers->m_concommand_is_blocked);
+		detour_hook_helper::add<hooks::CSteam3Server_OnValidateAuthTicketResponse>("CSteam3Server_OnValidateAuthTicketResponse", g_pointers->m_auth_responce);
 
 		g_hooking = this;
 	}

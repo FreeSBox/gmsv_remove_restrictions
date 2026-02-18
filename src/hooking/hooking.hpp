@@ -7,12 +7,14 @@
 
 class CBaseClient;
 class CSteam3Server;
+struct ValidateAuthTicketResponse_t;
 
 namespace gm
 {
 	struct hooks
 	{
 		static char* ConCommand_IsBlocked(char* command);
+		static void CSteam3Server_OnValidateAuthTicketResponse(CSteam3Server* _this, ValidateAuthTicketResponse_t* responce);
 	};
 
 	class minhook_keepalive
