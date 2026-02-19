@@ -20,7 +20,7 @@ GMOD_MODULE_OPEN()
 
 	byte_patch_manager_instance = std::make_unique<byte_patch_manager>();
 	Msg("Byte Patch Manager initialized.\n");
-
+	
 	hooking_instance = std::make_unique<hooking>();
 	Msg("Hooking initialized.\n");
 

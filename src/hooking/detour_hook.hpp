@@ -29,11 +29,6 @@ namespace gm
 
 		void fix_hook_address();
 
-		const std::string& get_name()
-		{
-			return m_name;
-		}
-
 	private:
 		void create_hook();
 

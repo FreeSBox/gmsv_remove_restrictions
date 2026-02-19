@@ -18,11 +18,6 @@ namespace gm
 			m_allow_wrong_game = ptr.sub(27).as<void*>();
 		});
 
-		batch.add("AuthResponce", "7E 0B 5D E9", [this](memory::handle ptr) {
-			m_auth_responce = ptr.add(4).rip().as<void*>();
-			m_find_client_from_steamid = ptr.add(4).rip().add(0x2A).rip().as<ClientFindFromSteamID>();
-		});
-
 		batch.add("CGameServer", "48 8B 3D ? ? ? ? F3 0F 58", [this](memory::handle ptr) {
 			m_sv = ptr.add(3).rip().as<IServer *>();
 		});
@@ -30,11 +25,6 @@ namespace gm
 		batch.add("Steam Auth", "8B 85 78 FF FF FF C7 04", [this](memory::handle ptr) {
 			m_allow_invalid_ticket = ptr.add(0x3F).as<void*>();
 			m_allow_wrong_game = ptr.sub(0x1D).as<void*>();
-		});
-
-		batch.add("AuthResponce", "7E 06 5D E9", [this](memory::handle ptr) {
-			m_auth_responce = ptr.add(4).rip().as<void*>();
-			m_find_client_from_steamid = ptr.add(4).rip().add(0x23).rip().as<ClientFindFromSteamID>();
 		});
 
 		batch.add("CGameServer", "C7 04 24 ? ? ? ? A3 ? ? ? ? E8 ? ? ? ? D9", [this](memory::handle ptr) {
