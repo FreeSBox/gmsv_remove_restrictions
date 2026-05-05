@@ -27,7 +27,7 @@ namespace gm
 			m_allow_wrong_game = ptr.sub(0x1D).as<void*>();
 		});
 
-		batch.add("CGameServer", "C7 04 24 ? ? ? ? A3 ? ? ? ? E8 ? ? ? ? D9", [this](memory::handle ptr) {
+		batch.add("CGameServer", "C7 04 24 ? ? ? ? A3 ? ? ? ? E8 ? ? ? ? 89", [this](memory::handle ptr) {
 			m_sv = *ptr.add(3).as<IServer **>();
 		});
 #endif
