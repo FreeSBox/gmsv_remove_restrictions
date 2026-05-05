@@ -1,14 +1,14 @@
 include(FetchContent)
 
 if (CMAKE_SIZEOF_VOID_P EQUAL 8)
-	set(SOURCE_SDK_TAG b2c2a520ed2f7c73d716682c9295294ffd26c172)
+	set(SOURCE_SDK_TAG x86-64-branch) # This constantly breaks due to force pushes, let's just use the latest commit.
 else()
-	set(SOURCE_SDK_TAG 58938eaf9954fb5e8ee4a1780ea260405d25556b)
+	set(SOURCE_SDK_TAG 02b6679d1b3f90117d4bbcfe2b1f71ee9250014f)
 endif()
 
 FetchContent_Declare(
 	sourcesdk_minimal
-	GIT_REPOSITORY https://github.com/danielga/sourcesdk-minimal.git
+	GIT_REPOSITORY https://github.com/RaphaelIT7/sourcesdk-minimal.git
 	GIT_TAG        ${SOURCE_SDK_TAG}
 	GIT_PROGRESS TRUE
 )

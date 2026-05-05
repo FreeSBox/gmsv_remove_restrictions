@@ -20,8 +20,6 @@ namespace gm
 		void* m_allow_wrong_game{};
 
 		void* m_concommand_is_blocked{};
-
-		IServer* m_sv{};
 	};
 
 	inline pointers* g_pointers{};
