@@ -37,8 +37,8 @@ namespace gm
 			m_concommand_is_blocked = ptr.sub(17).as<void*>();
 		});
 #elif ARCHITECTURE_IS_X86
-		batch.add("ConCommand_IsBlocked", "8B 75 08 80 78", [this](memory::handle ptr) {
-			m_concommand_is_blocked = ptr.sub(13).as<void*>();
+		batch.add("ConCommand_IsBlocked", "A1 ? ? ? ? 8B 75 08 ? 78 ? ? ? ? A1", [this](memory::handle ptr) {
+			m_concommand_is_blocked = ptr.sub(8).as<void*>();
 		});
 #endif
 
